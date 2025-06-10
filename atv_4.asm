@@ -1,5 +1,3 @@
-#esse provavelmente ta errado
-
 .data
 	prompt_salario: .asciiz"\nDigite seu salario: "
 	teto_isento: .float 2259.20
@@ -16,9 +14,11 @@
 	msg_faixa1: .asciiz"\nFaixa 1: "
 	msg_isento: .asciiz"\nFaixa Isenta."
 	msg_total: .asciiz"\nTotal de impostos: "
+	msg_repetir: .asciiz"\nDeseja repetir?\n1-Sim\n"
 	
 	
 .text
+	enquanto:
 	l.s $f2, teto_isento
 	l.s $f3, teto1
 	l.s $f4, teto2
@@ -116,6 +116,16 @@
 	syscall
 	li $v0, 2
 	syscall
+	
+	#pergunta pro usuario se deseja repetir
+	li $v0, 4
+	la $a0, msg_repetir
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	beq $v0, 1, enquanto
 	
 	
 	
